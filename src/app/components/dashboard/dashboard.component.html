@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div *ngIf="!isAdmin" class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 class="sr-only">Productos</h2>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <!-- Tarjeta de Producto -->
+            <div *ngFor="let product of filteredProducts"
+                class="group flex flex-col m-5 p-3 border shadow-lg rounded-lg">
+                <div
+                    class="h-52 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                    <img [src]="'../../../assets/img/product/' + (product.image ? product.image : 'default.jpg')"
+                        [alt]="product.description"
+                        class="h-full w-full object-cover object-center group-hover:opacity-75">
+                </div>
+                <div class="flex mt-3">
+                    <div class="grid grid-cols-1 gap-y-2">
+                        <h3 class="h-10 text-sm text-gray-700 font-bold">{{ product.name }}</h3>
+                        <p class="h-20 text-base text-gray-900">{{ product.description }}</p>
+                        <p class="h-20 text-lg font-medium text-gray-900 font-extrabold">$. {{ product.price }}</p>
+                    </div>
+                </div>
+                <!-- Botón alineado a la derecha -->
+                <div class="flex-grow"></div> <!-- Esto empuja el contenido hacia abajo -->
+                <div class="flex mt-3"> <!-- Alinea el botón a la derecha -->
+                    <div *ngIf="product.stock > 0" class="justify-start">
+                        <label>Cant.</label>
+                        <input type="number" [ngModel]="getProductQuantity(product.id)"
+                            (ngModelChange)="onQuantityChange(product.id, $event)" min="0" placeholder="Cant."
+                            class="h-12 mr-3 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
+                    </div>
+                    <div class="justify-end mt-6 ml-1">
+                        <button type="button" *ngIf="product.stock > 0; else notAvailable"
+                            class="h-12 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            (click)="addToCart(product)">
+                            <!-- SVG de carrito -->
+                            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 18 21">
+                                <path
+                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                            </svg>
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #notAvailable>
+                    <p class="text-sm text-red-500 font-bold">No disponible</p>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-admin-products *ngIf="isAdmin">
+
+</app-admin-products>
+
+<app-shopping-card *ngIf="showShoppingCart"></app-shopping-card>

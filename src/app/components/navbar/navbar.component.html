@@ -1,0 +1,94 @@
+<!-- app.component.html -->
+
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/dashboard" class="w-60 flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="../../../assets/smart_logo.png" class="h-16" alt="Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tienda</span>
+        </a>
+
+        <div class=" flex md:order-2">
+            <!-- Toggle button for search on mobile -->
+            <button type="button" (click)="toggleSearch()" aria-controls="navbar-search" aria-expanded="false"
+                class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 ml-3 mr-3 rounded-lg text-sm p-2.5 me-1">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+            </button>
+            <div *ngIf="!isAdmin" class="relative hidden md:block" [class.hidden]="!isSearchOpen">
+                <input type="text" id="search-navbar" (input)="onSearchChange($event)"
+                    class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search...">
+            </div>
+            <!-- Toggle button for menu on mobile -->
+            <button (click)="toggleMenu()" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-search" aria-expanded="false">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <button type="button" (click)="showingCart()" *ngIf="!isAdmin"
+                class="ml-3 relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
+                </svg>
+                <span class="sr-only">Notification Carrito</span>
+                <div
+                    class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                    {{itemCount}}</div>
+            </button>
+            <button (click)="logout()" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-search" aria-expanded="false">
+                <svg class="w-9 h-9" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                </svg>
+
+            </button>
+
+        </div>
+
+        <div *ngIf="isAdmin;else menuClient"
+            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search"
+            [class.hidden]="!isMenuOpen">
+            <ul
+                class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-50 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
+                <li>
+                    <a href="/all-orders"
+                        class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Ordenes
+                        Sistema</a>
+                </li>
+                <li>
+                    <a href="/dashboard"
+                        class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Administrar
+                        Productos</a>
+                </li>
+            </ul>
+        </div>
+
+        <ng-template #menuClient>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search"
+                [class.hidden]="!isMenuOpen">
+                <ul
+                    class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-50 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
+                    <li>
+                        <a href="/my-orders/{{idUser}}"
+                            class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Mis
+                            Ordenes</a>
+                    </li>
+                </ul>
+            </div>
+        </ng-template>
+
+
+
+    </div>
+
+</nav>
