@@ -1,4 +1,7 @@
-# FrontShop
+# Test Front Shop Smart Talent
+
+![smart_logo](https://github.com/hom669/frontend-smart-talent-shop/assets/78924776/07233a7c-0be7-4323-899f-e686f44220a0)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
