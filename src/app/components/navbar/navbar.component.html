@@ -1,10 +1,10 @@
 <!-- app.component.html -->
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
+<nav class="bg-gray-700 border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/dashboard" class="w-60 flex items-center space-x-3 rtl:space-x-reverse">
             <img src="../../../assets/smart_logo.png" class="h-16" alt="Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tienda</span>
+            <span class="self-center text-white text-2xl font-semibold whitespace-nowrap dark:text-white">Tienda</span>
         </a>
 
         <div class=" flex md:order-2">
@@ -31,7 +31,7 @@
                 </svg>
             </button>
             <button type="button" (click)="showingCart()" *ngIf="!isAdmin"
-                class="ml-3 relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                class="ml-3 relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -59,7 +59,7 @@
             class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search"
             [class.hidden]="!isMenuOpen">
             <ul
-                class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-50 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
+                class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-400 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
                 <li>
                     <a href="/all-orders"
                         class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Ordenes
@@ -77,11 +77,15 @@
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search"
                 [class.hidden]="!isMenuOpen">
                 <ul
-                    class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-50 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
+                    class="flex flex-col rounded-md p-4 mt-4 md:p-0 md:mt-0 md:flex-row md:space-x-8 rtl:space-x-reverse bg-gray-400 md:bg-white dark:bg-gray-400 text-white md:dark:bg-gray-900">
                     <li>
                         <a href="/my-orders/{{idUser}}"
                             class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Mis
                             Ordenes</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard"
+                            class="block py-2 px-3 rounded md:p-0 hover:text-green-500 hover:font-bold md:hover:scale-110 transition duration-300">Tienda</a>
                     </li>
                 </ul>
             </div>
