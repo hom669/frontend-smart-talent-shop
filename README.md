@@ -79,6 +79,14 @@ El sistema tiene la implementacion tanto en frontend como backend usando autenti
 JSON Web Token (JWT) es un estándar abierto ( RFC 7519 ) que define una forma compacta y autónoma de transmitir información de forma segura entre partes como un objeto JSON. Esta información se puede verificar y confiar porque está firmada digitalmente. Los JWT se pueden firmar usando un secreto (con el algoritmo HMAC ) o un par de claves pública/privada usando RSA o ECDSA .
 
 
+# Usuario Admin Demo
+
+```bash
+# 
+ user: admin
+ password: admin2014#*
+```
+
 
 
 
