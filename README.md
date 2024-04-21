@@ -1,8 +1,5 @@
 # Test Front Shop Smart Talent
 
-![smart_logo](https://github.com/hom669/frontend-smart-talent-shop/assets/78924776/07233a7c-0be7-4323-899f-e686f44220a0)
-![angular](https://github.com/hom669/frontend-smart-talent-shop/assets/78924776/c89942f4-47a7-4d9e-bd42-192b1c2bbcc7)
-
 <p align="center">
   <img src="https://github.com/hom669/frontend-smart-talent-shop/assets/78924776/07233a7c-0be7-4323-899f-e686f44220a0" alt="smart_logo" width="200" />
   <img src="https://github.com/hom669/frontend-smart-talent-shop/assets/78924776/c89942f4-47a7-4d9e-bd42-192b1c2bbcc7" alt="angular" width="200" />
