@@ -10,6 +10,7 @@
                     <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">No.Orden</th>
                     <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">Fecha de Orden</th>
                     <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">Productos</th>
+                    <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">Usuario Orden</th>
                     <th class="w-32 p-3 text-sm font-semibold tracking-wide text-left">Total</th>
                 </tr>
             </thead>
@@ -22,10 +23,25 @@
                         {{setDateFormat(order.createdAt)}}
                     </td>
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <div *ngFor="let product of order.orderDetails">
-                            <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio: </b>:
-                            {{setMoneyFormat(product.product.price)}}
+                        <div *ngIf="order.orderDetails.length > 0;else productDiscontinued">
+                            <div *ngFor="let product of order.orderDetails">
+                                <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio:
+                                </b>:
+                                {{setMoneyFormat(product.product.price)}}
+                            </div>
                         </div>
+                        <ng-template #productDiscontinued>
+                            <div class="text-red-500">
+                                Producto Descontinuado en el Sistema
+                            </div>
+                        </ng-template>
+                    </td>
+                    <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+
+                        <b>Nombre: </b>{{order.user.details.fullName}} <b>Id: </b>
+                        {{order.user.details.identification}}
+                        <b>Email: </b>:
+                        {{order.user.details.email}}
                     </td>
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ setMoneyFormat(order.totalOrder) }}</td>
                 </tr>
@@ -37,18 +53,34 @@
         <div *ngFor="let order of listOrders" class="bg-white space-y-3 p-4 rounded-lg shadow">
             <div class="flex items-center space-x-2 text-sm">
                 <div>
-                    <a href="#" class="text-green-500 font-bold hover:underline">{{order.id}}</a>
+                    <a href="#" class="text-green-500 font-bold hover:underline">{{order.codeOrder}}</a>
                 </div>
                 <div class="text-gray-500">{{setDateFormat(order.createdAt)}}</div>
             </div>
             <div class="text-sm text-gray-700">
-                <div *ngFor="let product of order.orderDetails">
-                    <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio: </b>:
-                    {{setMoneyFormat(product.product.price)}}
+                <b>Productos: </b> <br><br>
+                <div *ngIf="order.orderDetails.length > 0;else productDiscontinued">
+                    <div *ngFor="let product of order.orderDetails">
+                        <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio: </b>:
+                        {{setMoneyFormat(product.product.price)}}
+                    </div>
                 </div>
+                <ng-template #productDiscontinued>
+                    <div class="text-red-500">
+                        Producto Descontinuado en el Sistema
+                    </div>
+                </ng-template>
+
+            </div>
+            <div class="text-sm text-gray-700">
+                <b>Usuario Orden: </b> <br><br>
+                <b>Nombre: </b>{{order.user.details.fullName}} <b>Id: </b>
+                {{order.user.details.identification}}
+                <b>Email: </b>:
+                {{order.user.details.email}}
             </div>
             <div class="text-sm font-medium text-black">
-                {{ setMoneyFormat(order.totalOrder) }}
+                <b>Total Orden: </b>{{ setMoneyFormat(order.totalOrder) }}
             </div>
         </div>
     </div>

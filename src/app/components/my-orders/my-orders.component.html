@@ -22,10 +22,18 @@
                         {{setDateFormat(order.createdAt)}}
                     </td>
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <div *ngFor="let product of order.orderDetails">
-                            <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio: </b>:
-                            {{setMoneyFormat(product.product.price)}}
+                        <div *ngIf="order.orderDetails.length > 0;else productDiscontinued">
+                            <div *ngFor="let product of order.orderDetails">
+                                <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio:
+                                </b>:
+                                {{setMoneyFormat(product.product.price)}}
+                            </div>
                         </div>
+                        <ng-template #productDiscontinued>
+                            <div class="text-red-500">
+                                Producto Descontinuado en el Sistema
+                            </div>
+                        </ng-template>
                     </td>
                     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{
                         setMoneyFormat(order.totalOrder) }}</td>
@@ -43,10 +51,19 @@
                 <div class="text-gray-500">{{setDateFormat(order.createdAt)}}</div>
             </div>
             <div class="text-sm text-gray-700">
-                <div *ngFor="let product of order.orderDetails">
-                    <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio: </b>:
-                    {{setMoneyFormat(product.product.price)}}
+                <b>Productos: </b> <br><br>
+                <div *ngIf="order.orderDetails.length > 0;else productDiscontinued">
+                    <div *ngFor="let product of order.orderDetails">
+                        <b>Nombre: </b>{{product.product.name}} <b>Cant: </b> {{product.quantity}} <b>Precio:
+                        </b>:
+                        {{setMoneyFormat(product.product.price)}}
+                    </div>
                 </div>
+                <ng-template #productDiscontinued>
+                    <div class="text-red-500">
+                        Producto Descontinuado en el Sistema
+                    </div>
+                </ng-template>
             </div>
             <div class="text-sm font-medium text-black">
                 <b>Total Orden: </b>{{ setMoneyFormat(order.totalOrder) }}
