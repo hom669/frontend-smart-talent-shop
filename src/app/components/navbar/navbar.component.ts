@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { SearchService } from '../../services/search.service';
-
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -17,6 +17,8 @@ export class NavbarComponent {
   public isSearchOpen: boolean = false;
   public idUser: any = null;
   public itemCount = 0;
+  public isSearchVisible = true;
+  public currentRoute: string = '';
 
 
   toggleMenu() {
@@ -31,6 +33,7 @@ export class NavbarComponent {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
     localStorage.removeItem("user");
+    localStorage.removeItem("shoppingCart");
     this.router.navigate(['/login']);
   }
 
@@ -42,8 +45,16 @@ export class NavbarComponent {
     this.verifyAdmin()
     this.setUser()
     this._cartService.cartItemCountObservable.subscribe((count) => {
+      console.log('!ASSSS')
       this.itemCount = count; // Actualiza el valor del badge
     });
+    this.subscribeToRouterEvents();
+  }
+
+  subscribeToRouterEvents() {
+    this.currentRoute = this.router.url;
+    this.isSearchVisible = this.currentRoute.includes('/dashboard');
+    console.log(this.currentRoute, this.isSearchVisible)
   }
 
   verifyAdmin() {

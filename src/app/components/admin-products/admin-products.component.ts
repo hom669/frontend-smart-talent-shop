@@ -23,6 +23,17 @@ export class AdminProductsComponent {
   editingProduct: Product | null = null; // Producto en edición
   isEditModalOpen = false; // Estado del modal
   isAddModalOpen = false;
+  isConfirmModalOpen = false;
+  productSelectDelete: Product = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    stock: 0,
+    userCreatedId: 0,
+    image: '',
+    codeProduct: ''
+  };
   newProduct: Product = {
     id: 0,
     name: '',
@@ -30,7 +41,8 @@ export class AdminProductsComponent {
     price: 0,
     stock: 0,
     userCreatedId: 0,
-    image: ''
+    image: '',
+    codeProduct: ''
   }; // Producto inicial
 
   constructor(private _productService: ProductService, private _utilityService: UtilityService, private toastr: ToastrService, private router: Router, private _errorService: ErrorService) {
@@ -50,7 +62,8 @@ export class AdminProductsComponent {
       price: 0,
       stock: 0,
       userCreatedId: this.idUser,
-      image: ''
+      image: '',
+      codeProduct: ''
     }; // Restaurar valor por defecto
     this.isAddModalOpen = true;
   }
@@ -90,9 +103,19 @@ export class AdminProductsComponent {
     const product = this.editingProduct;
 
     if (product) {
+      if (product.name == '') {
+        this.toastr.warning(`El nombre del producto no puede ser Vacio`, 'Advertencia')
+        return;
+      }
+
+      if (product.price == 0) {
+        this.toastr.warning(`El valor del producto no puede ser Cero`, 'Advertencia')
+        return;
+      }
+
       this._productService.editProduct(product).subscribe({
         next: (v) => {
-          this.toastr.success(`El producto ${product.name} fue actualizado con exito`, 'Producto Registrado')
+          this.toastr.success(`El producto <b>${product.name}</b> fue actualizado con exito`, 'Producto Editado')
           this.closeEditModal()
           this.getOrdersById()
         },
@@ -111,12 +134,13 @@ export class AdminProductsComponent {
     this.isAddModalOpen = false;
   }
 
-  deleteProduct(productId: number) {
-    this._productService.deleteProduct(productId).subscribe({
+  deleteProduct() {
+    this._productService.deleteProduct(this.productSelectDelete.id).subscribe({
       next: (v) => {
-        this.toastr.success(`El producto ${productId} fue actualizado con exito`, 'Producto Registrado')
+        this.toastr.error(`El producto <b>${this.productSelectDelete.name}</b> fue eliminado con exito`, 'Producto Eliminado')
         this.closeEditModal()
         this.getOrdersById()
+        this.closeConfirmModal()
       },
       error: (e: HttpErrorResponse) => {
         this._errorService.msjError(e);
@@ -126,13 +150,32 @@ export class AdminProductsComponent {
     })
   }
 
+  openConfirmModal(product: Product) {
+    this.isConfirmModalOpen = true;
+    this.productSelectDelete = product;
+  }
+
+  closeConfirmModal() {
+    this.isConfirmModalOpen = false;
+  }
+
   saveProduct() {
     const product = this.newProduct;
 
     if (product) {
+      if (product.name == '') {
+        this.toastr.warning(`El nombre del producto no puede ser Vacio`, 'Advertencia')
+        return;
+      }
+
+      if (product.price == 0) {
+        this.toastr.warning(`El valor del producto no puede ser Cero`, 'Advertencia')
+        return;
+      }
+
       this._productService.saveProduct(product).subscribe({
         next: (v) => {
-          this.toastr.success(`El producto ${product.name} fue creado con exito`, 'Producto Registrado')
+          this.toastr.success(`El producto <b>${product.name}</b> fue creado con exito`, 'Producto Registrado')
           this.closeAddModal()
           this.getOrdersById()
         },

@@ -13,4 +13,5 @@ export interface Order {
         },
     }[];
     totalOrder: number;
+    codeOrder: string;
 }

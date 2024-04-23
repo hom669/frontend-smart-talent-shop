@@ -9,7 +9,11 @@ export class UtilityService {
 
   // Función para formatear números con separadores de miles
   public formatNumberWithSeparators(value: number): string {
-    const formatter = new Intl.NumberFormat('es-ES'); // Configuración para español (España)
+    const formatter = new Intl.NumberFormat('co-CO', {
+      useGrouping: true, // Habilita el uso de separadores de miles
+      minimumFractionDigits: 0, // No usar decimales
+      maximumFractionDigits: 0,
+    });
     return `$ ${formatter.format(value)}`; // Formatear número
   }
 

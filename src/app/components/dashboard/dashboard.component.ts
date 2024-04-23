@@ -9,6 +9,8 @@ import { ShoppingCardComponent } from '../shopping-card/shopping-card.component'
 import { Subscription } from 'rxjs';
 import { SearchService } from '../../services/search.service';
 import { AdminProductsComponent } from '../admin-products/admin-products.component';
+import { UtilityService } from '../../services/utility.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +28,7 @@ export class DashboardComponent {
   public filteredProducts: Product[] = [];
   public searchSubscription: Subscription | null = null;
 
-  constructor(private _productService: ProductService, private _cartService: CartService, private _searchService: SearchService) {
+  constructor(private toastr: ToastrService, private _productService: ProductService, private _cartService: CartService, private _searchService: SearchService, private _utilityService: UtilityService) {
 
   }
 
@@ -50,6 +52,9 @@ export class DashboardComponent {
 
     const cartNow = this._cartService.getCart();
     this._cartService.updateCartItemCount();
+
+    this.toastr.success(`El producto ${product.name} por (${quantity}) fue agregado con exito`, 'Revise su Carrito')
+
   }
 
   getProducts() {
@@ -91,6 +96,10 @@ export class DashboardComponent {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe(); // Desuscribirse para evitar memory leaks
     }
+  }
+
+  setMoneyFormat(numero: number): string {
+    return this._utilityService.formatNumberWithSeparators(numero);
   }
 
 }

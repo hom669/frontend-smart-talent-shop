@@ -15,7 +15,8 @@ export const appConfig: ApplicationConfig = {
       ToastrModule.forRoot({
         timeOut: 10000,
         positionClass: 'toast-bottom-right',
-        preventDuplicates: true
+        preventDuplicates: true,
+        enableHtml: true,
       })
     ),
     provideRouter(routes),

@@ -6,4 +6,5 @@ export interface Product {
     stock: number,
     userCreatedId: number,
     image: string,
+    codeProduct: string,
 }

@@ -17,7 +17,9 @@
                     <div class="grid grid-cols-1 gap-y-2">
                         <h3 class="h-10 text-sm text-gray-700 font-bold">{{ product.name }}</h3>
                         <p class="h-20 text-base text-gray-900">{{ product.description }}</p>
-                        <p class="h-20 text-lg font-medium text-gray-900 font-extrabold">$. {{ product.price }}</p>
+                        <p class="h-20 text-lg font-medium text-gray-900 font-extrabold"><b>
+                                {{setMoneyFormat(product.price) }}
+                            </b></p>
                     </div>
                 </div>
                 <!-- Botón alineado a la derecha -->

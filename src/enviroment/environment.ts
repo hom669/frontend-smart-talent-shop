@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiBaseUrl: 'https://apismart.inghoma.com/api/'
+    apiBaseUrl: 'https://apismart1.inghoma.com/api/'
 };
