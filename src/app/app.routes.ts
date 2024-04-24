@@ -6,6 +6,7 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { authGuard } from "./utils/auth.guard";
 import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
 import { AllOrdersComponent } from "./components/all-orders/all-orders.component";
+import { RecipesComponent } from "./components/recipes/recipes.component";
 
 export const routes: Routes = [
     {
@@ -34,6 +35,11 @@ export const routes: Routes = [
     {
         path: 'all-orders',
         component: AllOrdersComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'recipes',
+        component: RecipesComponent,
         canActivate: [authGuard]
     },
     {

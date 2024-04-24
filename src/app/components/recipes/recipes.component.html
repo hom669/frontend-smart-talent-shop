@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-12">
+    <h2 class="text-4xl font-extrabold">Recetas del día</h2>
+
+    <div class="grid gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-2">
+        <!-- Tarjeta de Producto -->
+        <div *ngFor="let recipe of recipeData" class="group flex flex-col m-5 p-3 border shadow-lg rounded-lg">
+            <h1 class="mb-4 font-bold">{{recipe.title}}</h1>
+            <div
+                class="h-52 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                <img [src]="recipe.image" [alt]=""
+                    class="h-full w-full object-cover object-center group-hover:opacity-75">
+            </div>
+            <div class="mt-3">
+                <div>
+                    <h1 class="mb-4 font-bold">Ingedientes: </h1>
+                    <div *ngFor="let ingredient of recipe.extendedIngredients" class="grid grid-cols-1 gap-y-2">
+                        <div class="flex items-center m-2"> <!-- Uso de flex para alinear imagen y texto -->
+                            <img [src]="'https://spoonacular.com/cdn/ingredients_100x100/' + ingredient.image" [alt]=""
+                                class="h-5 w-5 object-cover object-center mr-2">
+                            <!-- Añadimos un margen para separar la imagen del texto -->
+                            <span>{{ingredient.original}}</span> <!-- El texto queda al lado de la imagen -->
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h1 class="mb-4 font-bold">Pasos a Seguir: </h1>
+                    <div class="grid grid-cols-1 gap-y-2">
+                        <span
+                            [innerHTML]="recipe.instructions ? recipe.instructions :'<b>No hay instrucciones especificadas</b>'"></span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Botón alineado a la derecha -->
+            <div class="flex-grow"></div> <!-- Esto empuja el contenido hacia abajo -->
+
+        </div>
+
+    </div>
+</div>
